@@ -1,11 +1,14 @@
-import { useState ,useRef} from 'react';
+import { useState ,useRef, useContext} from 'react';
 
 import classes from './AuthForm.module.css';
+import AuthContext from '../../store/auth-context';
 
 const AuthForm = () => {
   const emailinputref=useRef();
-  const passwordinputref=useRef()
-
+  const passwordinputref=useRef();
+  
+  const authctx=useContext(AuthContext)
+ 
   const [isLogin, setIsLogin] = useState(true);
   const [isloading,setisloading]=useState(false);
   const [iserror, setiserror]=useState(false);
@@ -44,15 +47,17 @@ if(isLogin){
     }
     else {
       return res.json().then((data)=> {
-        let errormessage="Authenication failed";
+        let errormessages="Authenication failed";
 
-        throw new Error(errormessage)
+        throw new Error(errormessages)
       });
     }
 
 
   }).then(data=> {
-    console.log(data)
+    // console.log(data)
+    authctx.login(data.idToken);
+    
   })
   .catch(err=> {
    alert(err.message)
