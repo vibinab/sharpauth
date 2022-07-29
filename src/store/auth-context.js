@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const initialtoken=localStorage.getItem('token')
 
 const AuthContext = React.createContext({
   token: '',
@@ -8,16 +9,18 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(initialtoken);
 
   const userIsLoggedIn = !!token;
 
   const loginHandler = (token) => {
     setToken(token);
+    localStorage.setItem('token',token)
   };
 
   const logoutHandler = () => {
     setToken(null);
+    localStorage.setItem('token',token)
   };
 
   const contextValue = {
