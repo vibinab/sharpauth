@@ -10,6 +10,9 @@ const MainNavigation = () => {
   const authctx=useContext(AuthContext);
   const isLoggedIn=authctx.isLoggedIn;
  
+ const logoutHandler=()=> {
+  authctx.logout();
+ }
 
  
   return (
@@ -39,7 +42,7 @@ const MainNavigation = () => {
         {
           isLoggedIn && ( 
             <li>
-            <button>Logout</button>
+            <button onClick={logoutHandler}>Logout</button>
           </li>
           )
         }
